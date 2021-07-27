@@ -28,11 +28,8 @@
 		</div>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
-				{% load static %}
-				<img src="{% static 'img/binary.jpg' %}" alt="">
-				<svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-					<rect width="100%" height="100%" fill="#777"/>
-				</svg>
+				{% load static %}carousel-1
+				<img src="{% static 'img/carousel-1.jpg' %}" alt="圖片載入失敗">
 				<div class="container">
 					<div class="carousel-caption text-start">
 						<h1>內壢高中資訊研究社NL.ComputerScience</h1>
@@ -49,7 +46,7 @@
 			</div>
 			<div class="carousel-item">
 				{% load static %}
-				<img src="{% static 'img/problem.jpg' %}" alt="">
+				<img src="{% static 'img/carousel-2.jpg' %}" alt="圖片載入失敗">
 				<div class="container">
 					<div class="carousel-caption text">
 						<h1>豐富的程式競賽教材與挑戰題</h1>
@@ -60,7 +57,7 @@
 			</div>
 			<div class="carousel-item">
 				{% load static %}
-				<img src="{% static 'img/work.jpg' %}" alt="">
+				<img src="{% static 'img/carousel-3.jpg' %}" alt="圖片載入失敗">
 				<div class="container">
 					<div class="carousel-caption text-end">
 						<h1>作品展示</h1>
@@ -124,43 +121,48 @@
 		<hr class="featurette-divider">
 		<div class="row featurette">
 			<div class="col-md-7">
-				<h2 class="featurette-heading">First featurette heading. <span class="text-muted">It’ll blow your mind.</span></h2>
-				<p class="lead">Some great placeholder content for the first featurette here. Imagine some exciting prose here.</p>
+				<h2 class="featurette-heading">內壢高中資訊研究社NL.ComputerScience <br><span class="text-muted">定位與發展現況</span></h2>
+				<p class="lead">我們是一個聚集許多真心熱愛資訊領域同學的社團，平時由學長帶領社課學各式各樣的資訊技術。
+					<br> 我們主要是學以C++/C為主的競賽程式題目，像是：資料結構、演算法等都會接觸；時不時會教一些其他有趣的技術，例如：小遊戲製作、python等等
+					<br> 或許有人對資研的印象停留在只是個玩玩電腦、混混時間的社團，確實無法否認的確有人是抱著這種心態來到這個社團
+					<br> ——不過假如這個人就是你，我們在此先預告你會過得很不快樂，因為我們上的東西都是要經過一定的思考才能學會的，要是你都在打遊戲混時間不願思考的話，到了學期後半你在社團中就會都聽不懂，之後看看身邊選其他社團的同學都過得很嗨很開心，你會覺得不是滋味到了極致，因為你浪費了一學期的寶貴時光...
+				</p>
 			</div>
 			<div class="col-md-5">
-				<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#eee"/>
-					<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-				</svg>
+				{% load static %}
+				<img src="{% static 'img/image1.jpg' %}" alt="圖片載入失敗">
 			</div>
 		</div>
 		<hr class="featurette-divider">
 		<div class="row featurette">
 			<div class="col-md-7 order-md-2">
-				<h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for yourself.</span></h2>
-				<p class="lead">Another featurette? Of course. More placeholder content here to give you an idea of how this layout would work with some actual real-world content in place.</p>
+				<h2 class="featurette-heading">享受社課時光的社員們! <br><span class="text-muted">與認真帶社課的學長XD</span></h2>
+				<p class="lead">
+					我們的社課都是由幹部們編排上課的，老師的話則會全程在一旁指導我們，帶領跟不上的同學們熟悉學長姐講解的內容
+					<br> 雖然課程是由幹部領導，不過我們的規劃十分的彈性，會根據同學們的學習狀況臨時調整，你要是對於社課內容有什麼建議，也都可以向幹部反應
+					<br> ——我們沒有嚴格的上下制度，就連老師都十分親切，有問題只要直接提就一定會有人幫你解答
+				</p>
 			</div>
 			<div class="col-md-5 order-md-1">
-				<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#eee"/>
-					<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-				</svg>
+				{% load static %}
+				<img src="{% static 'img/image2.jpg' %}" alt="圖片載入失敗">
 			</div>
 		</div>
 		<hr class="featurette-divider">
 		<div class="row featurette">
 			<div class="col-md-7">
-				<h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-				<p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
+				<h2 class="featurette-heading">學資訊到底是在學什麼?<br>修電腦?打遊戲? <br><span class="text-muted">是有差那一點學習歷程嗎?</span></h2>
+				<p class="lead">
+					最後，有人可能會想：所以學資訊到底是在幹嘛?與其拚那一點學習歷程還不如去別的社團玩個開心玩個爽，之後好好讀書科系還不是任我選?這邊一次幫大家解答完!!
+					<ol>
+						<li>學資訊在幹嘛?<br> 寫程式、刷競賽題目、寫一些有的沒的但很酷的程式等，以上是我們實際上做的事情，但追根究柢，就是學跟資訊相關的一切，只要你愛資訊，那來這邊就對了</li>
+						<li>那點學習歷程有差嗎?<br> 老實說，因人而異。為什麼呢?因為這取決於你學習的熱忱與態度，你要是真的很愛資訊，愛到打比賽打到資奧國際賽第一，那厲不厲害??你不考學測全臺資工也任你挑!就算不拉這麼遠來講，你在這三年中有做出屬於自己的專題，不論好壞，都對升學十分加分，到底有沒有用就留給你們自己判斷囉!</li>
+					</ol>
+				</p>
 			</div>
 			<div class="col-md-5">
-				<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false">
-					<title>Placeholder</title>
-					<rect width="100%" height="100%" fill="#eee"/>
-					<text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text>
-				</svg>
+				{% load static %}
+				<img src="{% static 'img/image3.jpg' %}" alt="圖片載入失敗">
 			</div>
 		</div>
 		<hr class="featurette-divider">
