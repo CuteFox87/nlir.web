@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def display(request):
+    context = {}
+    if request.user.is_authenticated:
+        context['is_authenticated'] = True
+    return render(request, 'display/display.html', context=context)

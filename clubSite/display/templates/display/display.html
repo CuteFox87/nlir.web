@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %} Display {% endblock %}
+{% block reference %}
+<link rel="canonical" href="{% url 'display:display' %}">
+<style>
+	.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+	}
+	@media (min-width: 768px) {
+	.bd-placeholder-img-lg {
+	font-size: 3.5rem;
+	}
+	}
+</style>
+{% load static %}
+<!-- Custom styles for this template -->
+<link href="{% static 'display/css/product.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<main>
+	<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+		<div class="col-md-5 p-lg-5 mx-auto my-5">
+			<h1 class="display-4 fw-normal">作品展示</h1>
+			<p class="lead fw-normal">以下是學長姐們濃縮了他們技術精華而成就的作品 <br> 好好欣賞吧( • ̀ω•́ )</p>
+		</div>
+		<div class="product-device shadow-sm d-none d-md-block"></div>
+		<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+	</div>
+	<div class="row align-items-md-stretch">
+		<div class="col-md-6">
+			<div class="h-100 p-5 text-white bg-dark rounded-3">
+				<h2>Change the background</h2>
+				<p>Swap the background-color utility and add a `.text-*` color utility to mix up the jumbotron look. Then, mix and match with additional component themes and more.</p>
+				<button class="btn btn-outline-light" type="button" onclick="location.href='#'">Example button</button>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="h-100 p-5 bg-light border rounded-3">
+				<h2>Add borders</h2>
+				<p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
+				<button class="btn btn-outline-secondary" type="button" onclick="location.href='#'">Example button</button>
+			</div>
+		</div>
+	</div>
+</main>
+{% endblock %}
