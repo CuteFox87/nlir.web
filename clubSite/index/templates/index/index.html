@@ -41,7 +41,11 @@
 							你相信自己可以創造時代嗎!
 							覺得自己行的話，就來內高資研!!
 						</p>
-						<p><a class="btn btn-lg btn-primary" href="#">社員走這邊登入</a></p>
+						{% if is_authenticated %}
+						<p><a class="btn btn-lg btn-primary" href="{% url 'personal:log_out' %}">社員走這邊登出</a></p>
+						{% else %}
+						<p><a class="btn btn-lg btn-primary" href="{% url 'personal:login' %}">社員走這邊登入</a></p>
+						{% endif %}
 					</div>
 				</div>
 			</div>
@@ -88,7 +92,11 @@
 				<img src="{% static 'index/img/head-icon.png' %}" alt="圖片載入失敗">
 				<h2>社員個人帳戶</h2>
 				<p>每位社員都會擁有屬於自己的個人帳戶，個人帳戶可以讓社員管理、紀錄解題的數目以互相砥礪</p>
-				<p><a class="btn btn-secondary" href="#">登入 &raquo;</a></p>
+				{% if is_authenticated %}
+				<p><a class="btn btn-secondary" href="{% url 'personal:log_out' %}">登出 &raquo;</a></p>
+				{% else %}
+				<p><a class="btn btn-secondary" href="{% url 'personal:login' %}">登入 &raquo;</a></p>
+				{% endif %}
 			</div>
 			<!-- /.col-lg-4 -->
 			<div class="col-lg-4">
