@@ -31,22 +31,22 @@
 		<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 	</div>
     
-    {% for project in list %}
+    {% for project in project_list %}
     {% if forloop.counter|divisibleby:2 %}
 	<div class="row align-items-md-stretch">
 		<div class="col-md-7">
 			<div class="h-100 p-5 text-white bg-dark rounded-3">
-				<h2>Description</h2>
-				<p>這邊是會介紹你的作品在幹嘛的地方</p>
-				<button class="btn btn-outline-light" type="button" onclick="location.href='#'">作品連結</button>
+				<h2>{{ project.project_name }}</h2>
+				<p>{{ project.description }}</p>
+				<button class="btn btn-outline-light" type="button" onclick="location.href='{{ project.link }}'">作品連結</button>
 			</div>
 		</div>
 		<div class="col-md-5">
 			<div class="h-100 p-5 bg-light border rounded-3">
 				<h2>作者</h2>
-				<p>AlanHackerblablabla</p>
+				<p>{{ project.showAuthor }}</p>
                 <h2>發布時間</h2>
-				<p>2029/6/7</p>
+				<p>{{ project.date }}</p>
 			</div>
 		</div>
 	</div>
@@ -54,17 +54,17 @@
     <div class="row align-items-md-stretch">
 		<div class="col-md-7">
 			<div class="h-100 p-5 bg-light border rounded-3">
-				<h2>Description</h2>
-				<p>這邊是會介紹你的作品在幹嘛的地方</p>
-				<button class="btn btn-outline-secondary" type="button" onclick="location.href='#'">作品連結</button>
+				<h2>{{ project.project_name }}</h2>
+				<p>{{ project.description }}</p>
+				<button class="btn btn-outline-secondary" type="button" onclick="location.href='{{ project.link }}'">作品連結</button>
 			</div>
 		</div>
 		<div class="col-md-5">
 			<div class="h-100 p-5 text-white bg-dark rounded-3">
 				<h2>作者</h2>
-				<p>AlanHackerblablabla</p>
+				<p>{{ project.showAuthor }}</p>
                 <h2>發布時間</h2>
-				<p>2029/6/7</p>
+				<p>{{ project.date }}</p>
 			</div>
 		</div>
 	</div>
