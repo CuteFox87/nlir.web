@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'resource.apps.ResourceConfig',
     'display.apps.DisplayConfig',
     'personal.apps.PersonalConfig',
     'index.apps.IndexConfig',
