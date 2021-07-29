@@ -6,9 +6,10 @@ from django.urls import reverse
 
 def problem(request):
     context = {}
-    context['order_list'] = range(185)
     if request.user.is_authenticated:
+        context['order_list'] = request.user.problem_set.order_by('-problem_order')
         context['is_authenticated'] = True
+
     return render(request, 'resource/problem.html', context=context)
 
 def updateResult(request):
