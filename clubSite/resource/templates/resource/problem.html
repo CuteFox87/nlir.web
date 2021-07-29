@@ -4,6 +4,7 @@
 <link rel="canonical" href="{% url 'resource:problem' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 {% load static %}
+<script src="{% static 'resource/js/post_to_url.js' %}"></script>
 <link type="text/css" rel="stylesheet" href="{% static 'resource/css/problemSheet.css' %}">
 {% endblock %}
 {% block content %}
@@ -5237,4 +5238,13 @@
 		</tbody>
 	</table>
 </div>
+
+{% csrf_token %}
+<script>
+	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+	function postResult(select) {
+		post_to_url("{% url 'resource:updateResult'%}", {'result' : select.value, 'problem_order' : select.parentNode.parentNode.getElementsByTagName("div")[0].innerHTML});
+	}
+	//ord = document.getElementsByClassName("row-header-wrapper")
+</script>
 {% endblock %}
