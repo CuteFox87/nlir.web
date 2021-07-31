@@ -56,7 +56,15 @@
 					<div class="carousel-caption text">
 						<h1>豐富的程式競賽教材與挑戰題</h1>
 						<p>一天練一題 百天破百題 下個電神就是你</p>
-						<p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+						<p>
+							<div class="dropdown">
+								<a class="btn btn-lg btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Learn more</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a class="dropdown-item" href="#">講義</a></li>
+									<li><a class="dropdown-item" href="{% url 'resource:problem' %}">題目</a></li>
+								</ul>
+							</div>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -67,7 +75,7 @@
 					<div class="carousel-caption text-end">
 						<h1>作品展示</h1>
 						<p>學長姊們課餘發揮創意製作的作品 <br> 只要實力夠，你的作品也可以在這裡!</p>
-						<p><a class="btn btn-lg btn-primary" href="#">browse our project</a></p>
+						<p><a class="btn btn-lg btn-primary" href="{% url 'display:display' %}">browse our project</a></p>
 					</div>
 				</div>
 			</div>
@@ -104,7 +112,15 @@
 				<img class="bd-placeholder-img" src="{% static 'index/img/paper_sheet-icon.png' %}" alt="圖片載入失敗">
 				<h2>講義與題目</h2>
 				<p>老師精心編輯的講義與以前社員們整理出來的題目。並包含社員解題狀況的記分板</p>
-				<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+				<p>
+					<div class="dropdown">
+						<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">View details &raquo;</a>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<li><a class="dropdown-item" href="#">講義</a></li>
+							<li><a class="dropdown-item" href="{% url 'resource:problem' %}">題目</a></li>
+						</ul>
+					</div>
+				</p>
 			</div>
 			<!-- /.col-lg-4 -->
 			<div class="col-lg-4">
@@ -112,7 +128,7 @@
 				<img class="bd-placeholder-img" src="{% static 'index/img/beach-icon.png' %}" alt="圖片載入失敗">
 				<h2>作品展示</h2>
 				<p>學長姐們做的專題，由於每個人各自喜好的資訊領域不同，做出的成品也都各有特色</p>
-				<p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+				<p><a class="btn btn-secondary" href="{% url 'display:display' %}">View details &raquo;</a></p>
 			</div>
 			<!-- /.col-lg-4 -->
 		</div>
