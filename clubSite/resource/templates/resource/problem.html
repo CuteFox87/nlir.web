@@ -3,11 +3,15 @@
 {% block reference %}
 <link rel="canonical" href="{% url 'resource:problem' %}">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
 {% load static %}
 <script src="{% static 'resource/js/post_to_url.js' %}"></script>
+<script src="{% static 'resource/js/data.js' %}"></script>
 <link type="text/css" rel="stylesheet" href="{% static 'resource/css/problemSheet.css' %}">
 {% endblock %}
 {% block content %}
+<div class="container-fluid" style="overflow:auto">
+<div class="row" style="overflow:auto">
 <div class="ritz grid-container" dir="ltr">
 	<table class="waffle" cellspacing="0" cellpadding="0">
 		<thead>
@@ -5053,38 +5057,228 @@
 		</tbody>
 	</table>
 </div>
+</div>
+
+<div class="row">
+	<div style="position: relative; overflow:auto">
+		<canvas id="chart" height="100%" width="100%"></canvas>
+	</div>
+</div>
+</div>
 
 <div style="display:none" id="order_list">
 	{% for order in order_list %}
 	<span id="{{ order.result }}">{{ order.problem_order }}</span>
 	{% endfor %}
 </div>
+
+<div style="display:none" id="result_data">
+	<div id="AC">
+		{% for status in AC_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="NA">
+		{% for status in NA_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="WA">
+		{% for status in WA_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="TLE">
+		{% for status in TLE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="MLE">
+		{% for status in MLE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="OLE">
+		{% for status in OLE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="RE">
+		{% for status in RE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="RF">
+		{% for status in RF_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="CE">
+		{% for status in CE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+	<div id="SE">
+		{% for status in SE_list %}
+		<span id="{{ status.problem_order }}"></span>
+		{% endfor %}
+	</div>
+</div>
+
 {% csrf_token %}
 <script>
-	const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-	function postResult(select) {
-		post_to_url("{% url 'resource:updateResult'%}", {'result' : select.value, 'problem_order' : select.parentNode.parentNode.getElementsByTagName("div")[0].innerHTML});
-	}
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-	window.onload = init();
-	function init() {
-		let ord = document.getElementsByClassName("row-header-wrapper");
-		let order_list = document.getElementById("order_list");
-		if (order_list.hasChildNodes()) {
-			let children = order_list.childNodes;
+function postResult(select) {
+    post_to_url("{% url 'resource:updateResult'%}", {
+        'result': select.value,
+        'problem_order': select.parentNode.parentNode.getElementsByTagName("div")[0].innerHTML
+    });
+}
 
-			for (let i = 0; i < children.length; ++i) {
-				if(i % 2 != 0) {
-					select = ord[parseInt(children[i].textContent, 10) - 1].parentNode.parentNode.getElementsByTagName("select")[0];
-					select.options[0].selected = false;
-					for(let j = 0; j < 11; ++j) {
-						if(select.options[j].value == children[i].id) {
-							select.options[j].selected = true;
-						}
-					}
-				}
-			}
-		}
-	}
+window.onload = init();
+
+function init() {
+    changeSelect();
+    chartInit();
+    drawChart();
+}
+
+function changeSelect() {
+    let ord = document.getElementsByClassName("row-header-wrapper");
+    let order_list = document.getElementById("order_list");
+    if (order_list.hasChildNodes()) {
+        let children = order_list.childNodes;
+
+        for (let i = 0; i < children.length; ++i) {
+            if (i % 2 != 0) {
+                select = ord[parseInt(children[i].textContent, 10) - 1].parentNode.parentNode.getElementsByTagName("select")[0];
+                select.options[0].selected = false;
+                for (let j = 0; j < 11; ++j) {
+                    if (select.options[j].value == children[i].id) {
+                        select.options[j].selected = true;
+                    }
+                }
+            }
+        }
+    }
+}
+
+function chartInit() {
+    let result_data = document.getElementById("result_data");
+    let children = result_data.childNodes;
+
+    for (let i = 0; i < children.length; ++i) {
+        if (i % 2 != 0) {
+            if (children[i].hasChildNodes()) {
+                let childrenChilden = children[i].childNodes;
+
+                for (let j = 0; j < childrenChilden.length; ++j) {
+                    if (childrenChilden[j].id != undefined) {
+                        let index = problem_list.indexOf(parseInt(childrenChilden[j].id));
+                        eval(children[i].id + '_list')[index]++;
+                    }
+                }
+            }
+        }
+    }
+}
+
+function drawChart() {
+    var ctx = document.getElementById('chart');
+    const data = {
+        labels: problem_list,
+        datasets: [{
+            type: 'line',
+            label: 'AC',
+            data: AC_list,
+            fill: false,
+            borderColor: 'rgb(0, 255, 30)',
+        }, {
+            type: 'line',
+            label: 'NA',
+            data: NA_list,
+            fill: false,
+            borderColor: 'rgb(132, 137, 246)'
+        }, {
+            type: 'line',
+            label: 'WA',
+            data: WA_list,
+            fill: false,
+            borderColor: 'rgb(246, 132, 246)',
+        }, {
+            type: 'line',
+            label: 'TLE',
+            data: TLE_list,
+            fill: false,
+            borderColor: 'rgb(230, 242, 135)'
+        }, {
+            type: 'line',
+            label: 'MLE',
+            data: MLE_list,
+            fill: false,
+            borderColor: 'rgb(136, 242, 242)'
+        }, {
+            type: 'line',
+            label: 'OLE',
+            data: OLE_list,
+            fill: false,
+            borderColor: 'rgb(242, 136, 136)'
+        }, {
+            type: 'line',
+            label: 'RE',
+            data: RE_list,
+            fill: false,
+            borderColor: 'rgb(164, 164, 81)'
+        }, {
+            type: 'line',
+            label: 'RF',
+            data: RF_list,
+            fill: false,
+            borderColor: 'rgb(79, 156, 156)'
+        }, {
+            type: 'line',
+            label: 'CE',
+            data: CE_list,
+            fill: false,
+            borderColor: 'rgb(122, 122, 122)'
+        }, {
+            type: 'line',
+            label: 'SE',
+            data: SE_list,
+            fill: false,
+            borderColor: 'rgb(255, 0, 128)'
+        }]
+    };
+
+    const config = {
+        type: 'scatter',
+        data: data,
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: '題號'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "人數"
+                    },
+                    min: 0,
+                    ticks: {
+                        // forces step size to be 50 units
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    };
+
+    var mixedChart = new Chart(ctx, config);
+}
 </script>
 {% endblock %}
