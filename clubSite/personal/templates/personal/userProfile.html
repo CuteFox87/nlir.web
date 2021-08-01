@@ -1,0 +1,220 @@
+{% extends 'base.html' %}
+{% block title %} Index {% endblock %}
+{% block reference %}
+<link rel="canonical" href="{% url 'personal:userProfile' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"></script>
+{% load static %}
+<link rel="stylesheet" href="{% static 'personal/css/style.css' %}">
+<script src="{% static 'resource/js/post_to_url.js' %}"></script>
+{% endblock %}
+{% block content %}
+<main id="main">
+	<section id="breadcrumbs" class="breadcrumbs">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>User Profile</h2>
+			</div>
+		</div>
+	</section>
+
+	<section id="portfolio-details" class="portfolio-details">
+		<div class="container">
+			<div class="row gy-4">
+				<div class="col-lg-8">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">近期解題狀況</h1>
+					</div>
+					<canvas class="my-4 w-100" id="chart" width="900" height="450"></canvas>
+					<h2>個人解題紀錄</h2>
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Header</th>
+									<th scope="col">Header</th>
+									<th scope="col">Header</th>
+									<th scope="col">Header</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1,001</td>
+									<td>random</td>
+									<td>data</td>
+									<td>placeholder</td>
+									<td>text</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="portfolio-info">
+						<h3>
+                            <a class="text-primary" style="text-decoration:none;" data-bs-toggle="modal" data-bs-target="#editInfo">information
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg></a>
+                        </h3>
+						<ul>
+							<li><strong>我的名字</strong>: {{username}}</li>
+							<li class="autoBreak"><strong>我的email</strong>: {{email}}</li>
+							<li><strong>上次登入時間</strong>:<br> {{last_login}}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="editInfo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">編輯您的個人資訊</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form action="{% url 'personal:editUserInfo' %}" method="POST" id="infoForm">
+			{% csrf_token %}
+				<div class="modal-body">
+					<small class="text-secondary">請啟用想修改的資訊的輸入框，只要點擊左側圖案即可啟用；再次點擊可以關閉</small>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1" onclick = "reverse('username');">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+								<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+							</svg>
+						</span>
+						<input type="text" class="form-control" id="username" name = "username" placeholder="使用者名稱" maxlength="20" pattern="^[a-zA-Z0-9_]+$" title="帳號名稱中不可含有底線以外的特殊符號" disabled required>
+					</div>
+					<small class="text-danger">請注意！密碼修改完成後將會自動登出</small>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1" onclick = "reverse('pass');reverse('re-pass');">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+								<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/>
+							</svg>
+						</span>
+						<input type="password" class="form-control" id="pass" name = "pass" placeholder="新密碼" minlength="6" maxlength="16" pattern="^[a-zA-Z0-9_\\/.,<>?~`!@#$%^&*()-=+|]+$" title="密碼中不可含有單引號和雙引號" disabled required>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1" onclick = "reverse('pass');reverse('re-pass');">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+								<path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+							</svg>
+						</span>
+						<input type="password" class="form-control" id="re-pass" placeholder="確認密碼" minlength="6" maxlength="16" pattern="^[a-zA-Z0-9_\\/.,<>?~`!@#$%^&*()-=+|]+$" title="密碼中不可含有單引號和雙引號" disabled required>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="basic-addon1" onclick = "reverse('email');">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+								<path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.818l5.724 3.465L8 8.917l1.276.766L15 6.218V5.4a1 1 0 0 0-.53-.882l-6-3.2zM15 7.388l-4.754 2.877L15 13.117v-5.73zm-.035 6.874L8 10.083l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738zM1 13.117l4.754-2.852L1 7.387v5.73zM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765l6-3.2z"/>
+							</svg>
+						</span>
+						<input type="text" class="form-control" id="email" name = "email" placeholder="Email" pattern="^\w+((-\w+)|(\.\w+))*[@][A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]{2,4}$" title="此電子郵件地址無效。請務必確認其格式為 example@email.com" disabled required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.reload();">Close</button>
+					<button type="button" id="submit" class="btn btn-primary" onclick="checkPass();checkInput();">Save Change</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	function reverse(id) {
+		document.getElementById(id).disabled = !document.getElementById(id).disabled;
+		return;
+	}
+
+	function checkPass() {
+		pass = document.getElementById("pass");
+		repass = document.getElementById("re-pass");
+
+		if(pass.value != repass.value) {
+			alert("新密碼與確認密碼不相同!");
+			location.reload();
+		} else {
+			submit = document.getElementById("submit");
+			submit.type = "submit";
+			return;
+		}
+	}
+
+	function checkInput() {
+		username = document.getElementById("username");
+		email = document.getElementById("email");
+		pass = document.getElementById("pass");
+
+		if(username.disabled) {
+			nullInput("username");
+		}
+		if(email.disabled) {
+			nullInput("email");
+		}
+		if(pass.disabled) {
+			nullInput("pass");
+		}
+	}
+
+	function nullInput(key) {
+		var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", key);
+        hiddenField.setAttribute("value", "");
+
+		form = document.getElementById("infoForm");
+        form.appendChild(hiddenField);
+	}
+
+	let ctx = document.getElementById("chart").getContext("2d");
+	
+	let myLineChart = new Chart(ctx, {
+	    type: "line",
+	    data: {
+	        labels: [
+	            moment("2009-04-11").format('YYYY, MM/DD'),
+	            moment("2009-05-16").format('YYYY, MM/DD'),
+	            moment("2009-10-10").format('YYYY, MM/DD'),
+	            moment("2009-11-28").format('YYYY, MM/DD'),
+	            moment("2010-02-14").format('YYYY, MM/DD'),
+	            moment("2010-03-13").format('YYYY, MM/DD'),
+	            moment("2010-04-17").format('YYYY, MM/DD'),
+	            moment("2010-12-18").format('MMMM DD, YYYY')
+	        ],
+	        datasets: [{
+	            label: "AC數量",
+	            borderColor: "#0088d4",
+	            data: [0, 1, 3, 8, 4, 6]
+	        }]
+	    },
+	    options: {
+	        scales: {
+	            x: {
+	                title: {
+	                    display: true,
+	                    text: '日期'
+	                }
+	            },
+	            y: {
+	                beginAtZero: true,
+	                title: {
+	                    display: true,
+	                    text: "AC數量"
+	                },
+	                ticks: {
+	                    stepSize: 1
+	                }
+	            }
+	        }
+	    }
+	
+	});
+</script>
+{% endblock %}

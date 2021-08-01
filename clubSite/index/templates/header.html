@@ -34,9 +34,11 @@
 			<li class="nav-item">
 				<a href="{% url 'display:display' %}" class="nav-link">作品展示</a>
 			</li>
+			{% if is_authenticated %}
 			<li class="nav-item">
-				<a href="#" class="nav-link">個人資訊</a>
+				<a href="{% url 'personal:userProfile' %}" class="nav-link">個人資訊</a>
 			</li>
+			{% endif %}
 		  </ul>
 		  <form class="d-flex">
 			{% if is_authenticated %}
