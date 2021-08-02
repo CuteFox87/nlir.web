@@ -17,3 +17,7 @@ class Problem(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    @property
+    def showDate(self):
+        return str(self.date).split(".")[0].split()[0]

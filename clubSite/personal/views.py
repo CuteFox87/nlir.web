@@ -11,6 +11,9 @@ def userProfile(request):
         context['username'] = object.username
         context['email'] = object.email
         context['last_login'] = str(object.last_login).split(".")[0]
+
+        context['order_list'] = request.user.problem_set.order_by('-problem_order')
+        context['AC_list'] = request.user.problem_set.filter(result="AC").order_by("date")[:7]
     return render(request, 'personal/userProfile.html', context=context)
 
 def editUserInfo(request):
