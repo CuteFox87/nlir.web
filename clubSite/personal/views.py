@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url="personal:login")
 def userProfile(request):
     context = {}
     if request.user.is_authenticated:
@@ -16,6 +18,7 @@ def userProfile(request):
         context['AC_list'] = request.user.problem_set.filter(result="AC").order_by("date")[:7]
     return render(request, 'personal/userProfile.html', context=context)
 
+@login_required(login_url="personal:login")
 def editUserInfo(request):
     object = request.user
     if request.POST['username']:
