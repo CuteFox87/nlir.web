@@ -1,3 +1,9 @@
 vm/*
-clubSite/db.sqlite3
-clubSite/.git
+.git
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+.env
+db.sqlite3
